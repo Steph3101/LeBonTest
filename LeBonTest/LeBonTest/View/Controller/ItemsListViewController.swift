@@ -95,6 +95,18 @@ extension ItemsListViewController: ItemsListViewModelDelegate {
     }
 
     func didFailToFetchData() {
-        print(#function)
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+
+            let alert = UIAlertController(title: "Oops !",
+                                          message: "Tout ne s'est pas déroulé comme prévu :-(\n\nOn ressaye ?",
+                                          preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Non", style: .cancel))
+            alert.addAction(UIAlertAction(title: "Oui", style: .default, handler: { _ in
+                self.viewModel.fetchItemsAndCategories()
+            }))
+
+            self.present(alert, animated: true, completion: nil)
+        }
     }
 }

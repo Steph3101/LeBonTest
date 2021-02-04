@@ -44,6 +44,7 @@ final class ItemsListViewModel {
             switch result {
             case .failure(let error):
                 print(error.localizedDescription)
+                self.itemsViewModels.removeAll()
                 self.delegate?.didFailToFetchData()
             case .success(let items):
                 self.itemsViewModels = items.map({ item -> ItemViewModel in
