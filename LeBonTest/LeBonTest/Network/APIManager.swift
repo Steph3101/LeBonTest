@@ -13,15 +13,34 @@ enum APIError: Error {
     case parsingError
 }
 
+enum APIEndpoint {
+    case categories
+    case items
+
+    var apiPath: String {
+        switch self {
+        case .categories: return "categories.json"
+        case .items: return "listing.json"
+        }
+    }
+
+    var httpMethod: String {
+        switch self { case .categories, .items: return "GET" }
+    }
+}
+
 struct APIManager {
 
     private let serverURL: String = "https://raw.githubusercontent.com/leboncoin/paperclip/master"
 
-    func getItems (completion: @escaping (Result<[Item], Error>) -> ()) {
-        guard let url = URL(string: serverURL)?.appendingPathComponent("listing.json") else {
+    func callAPI<T: Codable>(endPoint: APIEndpoint, completion: @escaping (Result<T, Error>) -> ()) {
+        guard let url = URL(string: serverURL)?.appendingPathComponent(endPoint.apiPath) else {
+            completion(.failure(APIError.urlError))
             return
         }
-        let request = URLRequest(url: url)
+
+        var request = URLRequest(url: url)
+        request.httpMethod = endPoint.httpMethod
 
         URLSession.shared.dataTask(with: request, completionHandler: { (data, response, error) in
             if let error = error {
@@ -35,41 +54,21 @@ struct APIManager {
             }
 
             let decoder = JSONDecoder()
-            guard let categories = try? decoder.decode([Item].self, from: data) else {
+            guard let response = try? decoder.decode(T.self, from: data) else {
                 completion(.failure(APIError.parsingError))
                 return
             }
 
-            completion(.success(categories))
+            completion(.success(response))
 
         }).resume()
     }
 
+    func getItems (completion: @escaping (Result<[Item], Error>) -> ()) {
+        self.callAPI(endPoint: .items, completion: completion)
+    }
+
     func getCategories(completion: @escaping (Result<[Category], Error>) -> ()) {
-        guard let url = URL(string: serverURL)?.appendingPathComponent("categories.json") else {
-            return
-        }
-        let request = URLRequest(url: url)
-
-        URLSession.shared.dataTask(with: request, completionHandler: { (data, response, error) in
-            if let error = error {
-                completion(.failure(error))
-                return
-           }
-
-            guard let data = data else {
-                completion(.failure(APIError.noDataError))
-                return
-            }
-
-            let decoder = JSONDecoder()
-            guard let categories = try? decoder.decode([Category].self, from: data) else {
-                completion(.failure(APIError.parsingError))
-                return
-            }
-
-            completion(.success(categories))
-
-        }).resume()
+        self.callAPI(endPoint: .categories, completion: completion)
     }
 }

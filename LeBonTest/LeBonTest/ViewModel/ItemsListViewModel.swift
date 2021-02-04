@@ -7,9 +7,16 @@
 
 import Foundation
 
+protocol ItemsListViewModelDelegate: class {
+    func didFetchData()
+    func didFailToFetchData()
+}
+
 final class ItemsListViewModel {
-    var categories: [Category] = [Category]()
-    var itemsViewModels: [ItemViewModel] = [ItemViewModel]()
+    private var categories: [Category] = [Category]()
+    private var itemsViewModels: [ItemViewModel] = [ItemViewModel]()
+
+    weak var delegate: ItemsListViewModelDelegate?
 
     var itemsCount: Int {
         return itemsViewModels.count
@@ -18,7 +25,9 @@ final class ItemsListViewModel {
     func fetchItemsAndCategories() {
         APIManager().getCategories { result in
             switch result {
-            case .failure(let error): print(error.localizedDescription)
+            case .failure(let error):
+                print(error.localizedDescription)
+                self.delegate?.didFailToFetchData()
             case .success(let categories):
                 self.categories = categories
                 self.fetchItems()
@@ -29,12 +38,16 @@ final class ItemsListViewModel {
     private func fetchItems() {
         APIManager().getItems { result in
             switch result {
-            case .failure(let error): print(error.localizedDescription)
+            case .failure(let error):
+                print(error.localizedDescription)
+                self.delegate?.didFailToFetchData()
             case .success(let items):
                 self.itemsViewModels = items.map({ item -> ItemViewModel in
                     return ItemViewModel(item: item)
                 })
 
+                self.delegate?.didFetchData()
+                print("\(self.categories.count) categories")
                 print("\(self.itemsCount) items")
             }
         }
