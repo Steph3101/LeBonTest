@@ -7,12 +7,15 @@
 
 import UIKit
 
-class ItemsListViewController: UIViewController {
+final class ItemsListViewController: UIViewController {
+
+    let viewModel = ItemsListViewModel()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
         self.view.backgroundColor = .green
+
+        self.viewModel.fetchItemsAndCategories()
     }
 }
 

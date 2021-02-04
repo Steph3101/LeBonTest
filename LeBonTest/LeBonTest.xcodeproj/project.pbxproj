@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F45FBF0D25CC229E00DE73AB /* APIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F45FBF0C25CC229E00DE73AB /* APIManager.swift */; };
 		F49B279425CBF2F200B56D48 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F49B279325CBF2F200B56D48 /* AppDelegate.swift */; };
 		F49B279D25CBF2F600B56D48 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F49B279C25CBF2F600B56D48 /* Assets.xcassets */; };
 		F49B27A025CBF2F600B56D48 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F49B279E25CBF2F600B56D48 /* LaunchScreen.storyboard */; };
@@ -20,6 +21,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		F45FBF0C25CC229E00DE73AB /* APIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIManager.swift; sourceTree = "<group>"; };
 		F49B279025CBF2F200B56D48 /* LeBonTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LeBonTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F49B279325CBF2F200B56D48 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F49B279C25CBF2F600B56D48 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -45,6 +47,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		F45FBF0F25CC22E100DE73AB /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				F45FBF0C25CC229E00DE73AB /* APIManager.swift */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
 		F49B278725CBF2F200B56D48 = {
 			isa = PBXGroup;
 			children = (
@@ -65,6 +75,7 @@
 			isa = PBXGroup;
 			children = (
 				F49B279325CBF2F200B56D48 /* AppDelegate.swift */,
+				F45FBF0F25CC22E100DE73AB /* Network */,
 				F49B27B925CBF97000B56D48 /* Model */,
 				F49B27BA25CBF97600B56D48 /* View */,
 				F49B27BB25CBF99800B56D48 /* ViewModel */,
@@ -188,6 +199,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F45FBF0D25CC229E00DE73AB /* APIManager.swift in Sources */,
 				F49B27C425CBFB2B00B56D48 /* Item.swift in Sources */,
 				F49B27C725CBFC0600B56D48 /* Category.swift in Sources */,
 				F49B279425CBF2F200B56D48 /* AppDelegate.swift in Sources */,

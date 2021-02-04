@@ -6,3 +6,11 @@
 //
 
 import Foundation
+
+struct ItemViewModel {
+    let item: Item
+
+    var name: String {
+        return item.title ?? ""
+    }
+}
