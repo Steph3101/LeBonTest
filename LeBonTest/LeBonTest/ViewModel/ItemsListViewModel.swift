@@ -22,6 +22,10 @@ final class ItemsListViewModel {
         return itemsViewModels.count
     }
 
+    func itemViewModel(forItemAtIndex indexPath: IndexPath) -> ItemViewModel {
+        return self.itemsViewModels[indexPath.row]
+    }
+
     func fetchItemsAndCategories() {
         APIManager().getCategories { result in
             switch result {
@@ -30,6 +34,7 @@ final class ItemsListViewModel {
                 self.delegate?.didFailToFetchData()
             case .success(let categories):
                 self.categories = categories
+                print("\(self.categories.count) categories")
                 self.fetchItems()
             }
         }
@@ -47,7 +52,6 @@ final class ItemsListViewModel {
                 })
 
                 self.delegate?.didFetchData()
-                print("\(self.categories.count) categories")
                 print("\(self.itemsCount) items")
             }
         }

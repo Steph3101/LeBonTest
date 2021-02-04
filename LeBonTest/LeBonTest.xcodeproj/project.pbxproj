@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F447204125CC4FB3003E2358 /* Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = F447204025CC4FB3003E2358 /* Protocols.swift */; };
 		F45FBF0D25CC229E00DE73AB /* APIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F45FBF0C25CC229E00DE73AB /* APIManager.swift */; };
 		F49B279425CBF2F200B56D48 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F49B279325CBF2F200B56D48 /* AppDelegate.swift */; };
 		F49B279D25CBF2F600B56D48 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F49B279C25CBF2F600B56D48 /* Assets.xcassets */; };
@@ -21,6 +22,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		F447204025CC4FB3003E2358 /* Protocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Protocols.swift; sourceTree = "<group>"; };
 		F45FBF0C25CC229E00DE73AB /* APIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIManager.swift; sourceTree = "<group>"; };
 		F49B279025CBF2F200B56D48 /* LeBonTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LeBonTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F49B279325CBF2F200B56D48 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -47,6 +49,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		F447203F25CC4F99003E2358 /* Additions */ = {
+			isa = PBXGroup;
+			children = (
+				F447204025CC4FB3003E2358 /* Protocols.swift */,
+			);
+			path = Additions;
+			sourceTree = "<group>";
+		};
 		F45FBF0F25CC22E100DE73AB /* Network */ = {
 			isa = PBXGroup;
 			children = (
@@ -75,6 +85,7 @@
 			isa = PBXGroup;
 			children = (
 				F49B279325CBF2F200B56D48 /* AppDelegate.swift */,
+				F447203F25CC4F99003E2358 /* Additions */,
 				F45FBF0F25CC22E100DE73AB /* Network */,
 				F49B27B925CBF97000B56D48 /* Model */,
 				F49B27BA25CBF97600B56D48 /* View */,
@@ -204,6 +215,7 @@
 				F49B27C725CBFC0600B56D48 /* Category.swift in Sources */,
 				F49B279425CBF2F200B56D48 /* AppDelegate.swift in Sources */,
 				F49B27BE25CBFAF400B56D48 /* ItemsListViewController.swift in Sources */,
+				F447204125CC4FB3003E2358 /* Protocols.swift in Sources */,
 				F49B27D025CBFF3400B56D48 /* ItemTableViewCell.swift in Sources */,
 				F49B27CD25CBFC6E00B56D48 /* ItemsListViewModel.swift in Sources */,
 				F49B27C125CBFB1900B56D48 /* ItemViewController.swift in Sources */,

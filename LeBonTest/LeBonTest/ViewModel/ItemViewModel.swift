@@ -8,9 +8,13 @@
 import Foundation
 
 struct ItemViewModel {
-    let item: Item
+    private let item: Item
+
+    init(item: Item) {
+        self.item = item
+    }
 
     var name: String {
-        return item.title ?? ""
+        return String(item.id)
     }
 }
