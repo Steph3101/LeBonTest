@@ -27,7 +27,7 @@ final class ItemViewController: UIViewController {
     }
 
     func setupData() {
-        self.titleLabel.text = self.viewModel?.name
+        self.titleLabel.text = self.viewModel?.category
     }
 }
 

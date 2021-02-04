@@ -82,10 +82,6 @@ extension ItemsListViewController: UITableViewDelegate {
         }
     }
 
-    func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
-        print(#function)
-    }
-
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 120
     }
@@ -93,7 +89,6 @@ extension ItemsListViewController: UITableViewDelegate {
 
 extension ItemsListViewController: ItemsListViewModelDelegate {
     func didFetchData() {
-        print(#function)
         DispatchQueue.main.async {
             self.tableView.reloadData()
         }

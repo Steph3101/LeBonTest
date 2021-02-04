@@ -10,4 +10,16 @@ import Foundation
 struct Item: Codable {
     let id: Int
     let title: String?
+    let categoryId: Int?
+    let itemDescription: String?
+    let price: Int?
+    let imagesUrl: ImagesUrl?
+    let creationDate: Date?
+    let isUrgent: Bool?
+    let siret: String?
+}
+
+struct ImagesUrl: Codable {
+    let small: String?
+    let thumb: String?
 }

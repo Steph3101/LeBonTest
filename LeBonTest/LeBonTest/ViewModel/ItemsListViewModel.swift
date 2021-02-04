@@ -13,7 +13,6 @@ protocol ItemsListViewModelDelegate: class {
 }
 
 final class ItemsListViewModel {
-    private var categories: [Category] = [Category]()
     private var itemsViewModels: [ItemViewModel] = [ItemViewModel]()
 
     weak var delegate: ItemsListViewModelDelegate?
@@ -33,8 +32,8 @@ final class ItemsListViewModel {
                 print(error.localizedDescription)
                 self.delegate?.didFailToFetchData()
             case .success(let categories):
-                self.categories = categories
-                print("\(self.categories.count) categories")
+                Category.categories = categories
+                print("\(Category.categories.count) categories")
                 self.fetchItems()
             }
         }

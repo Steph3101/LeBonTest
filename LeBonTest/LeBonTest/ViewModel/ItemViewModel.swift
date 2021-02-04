@@ -17,4 +17,9 @@ struct ItemViewModel {
     var name: String {
         return String(item.id)
     }
+
+    var category: String {
+        guard let categoryId = self.item.categoryId else { return "" }
+        return Category.category(forId: categoryId)?.name ?? ""
+    }
 }
