@@ -7,9 +7,14 @@
 
 import UIKit
 
+protocol ItemsListViewControllerDelegate: class {
+    func didSelect(itemViewModel: ItemViewModel)
+}
+
 final class ItemsListViewController: UIViewController {
 
     let viewModel = ItemsListViewModel()
+    weak var delegate: ItemsListViewControllerDelegate?
 
     private lazy var tableView: UITableView = {
         let tableView = UITableView()
@@ -70,7 +75,11 @@ extension ItemsListViewController: UITableViewDataSource {
 
 extension ItemsListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print(#function)
+        self.delegate?.didSelect(itemViewModel: self.viewModel.itemViewModel(forItemAtIndex: indexPath))
+
+        if let detailVC = delegate as? ItemViewController {
+            splitViewController?.showDetailViewController(detailVC, sender: nil)
+        }
     }
 
     func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {

@@ -21,6 +21,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         let itemsListNavigationVC = UINavigationController(rootViewController: itemsListVC)
         let itemVC = ItemViewController()
+        itemsListVC.delegate = itemVC
 
         splitViewController.viewControllers = [itemsListNavigationVC, itemVC]
 
