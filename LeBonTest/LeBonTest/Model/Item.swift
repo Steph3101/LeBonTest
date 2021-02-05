@@ -20,6 +20,6 @@ struct Item: Codable {
 }
 
 struct ImagesUrl: Codable {
-    let small: String?
-    let thumb: String?
+    let small: URL?
+    let thumb: URL?
 }

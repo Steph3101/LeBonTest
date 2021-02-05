@@ -27,4 +27,12 @@ struct ItemViewModel {
         guard let price = item.price else { return "" }
         return Tools.currencyFormatter.string(from: NSNumber(value: price)) ?? ""
     }
+
+    var smallImageUrl: URL? {
+        return item.imagesUrl?.small
+    }
+
+    var thumbImageUrl: URL? {
+        return item.imagesUrl?.thumb
+    }
 }

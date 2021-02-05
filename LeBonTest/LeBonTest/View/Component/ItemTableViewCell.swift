@@ -11,6 +11,11 @@ final class ItemTableViewCell: UITableViewCell {
     static let height: CGFloat = 100
 
     var itemViewModel: ItemViewModel?
+    private var imageDownloadTask: URLSessionTask?
+
+    private lazy var placeholderImage: UIImage? = {
+        return UIImage(named: "placeholder")
+    }()
 
     private lazy var containerView: UIView = {
         let view = UIView()
@@ -28,13 +33,14 @@ final class ItemTableViewCell: UITableViewCell {
     }()
 
     private lazy var thumbImageView: UIImageView = {
-        let imageView = UIImageView(image: UIImage(named: "placeholder"))
+        let imageView = UIImageView(image: self.placeholderImage)
         imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.contentMode = .scaleAspectFit
+        imageView.contentMode = .scaleAspectFill
         imageView.tintColor = .white
-        imageView.backgroundColor = .green
+        imageView.backgroundColor = .black
         imageView.layer.cornerRadius = 10
         imageView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMinXMaxYCorner]
+        imageView.clipsToBounds = true
         return imageView
     }()
 
@@ -86,6 +92,9 @@ final class ItemTableViewCell: UITableViewCell {
 
     override func prepareForReuse() {
         super.prepareForReuse()
+
+        self.imageDownloadTask?.cancel()
+        self.thumbImageView.image = self.placeholderImage
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -97,6 +106,30 @@ final class ItemTableViewCell: UITableViewCell {
         self.titleLabel.text = self.itemViewModel?.title
         self.categoryLabel.text =  self.itemViewModel?.category
         self.priceLabel.text = self.itemViewModel?.price
+
+        self.loadImage()
+    }
+
+    private func loadImage() {
+        if let imageUrl = self.itemViewModel?.smallImageUrl {
+            self.imageDownloadTask = URLSession.shared.dataTask(with: imageUrl, completionHandler: { (data, response, error) in
+                DispatchQueue.main.async {
+                    guard let data = data, let image = UIImage(data: data) else {
+                        self.thumbImageView.image = self.placeholderImage
+                        return
+                    }
+                    UIView.transition(with: self.thumbImageView,
+                                      duration: 0.2,
+                                      options: .transitionCrossDissolve,
+                                      animations: {
+                                        self.thumbImageView.image = image
+                                      },
+                                      completion: nil)
+                }
+            })
+
+            self.imageDownloadTask?.resume()
+        }
     }
 }
 
