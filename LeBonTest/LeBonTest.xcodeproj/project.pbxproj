@@ -20,6 +20,7 @@
 		F49B27CD25CBFC6E00B56D48 /* ItemsListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F49B27CC25CBFC6E00B56D48 /* ItemsListViewModel.swift */; };
 		F49B27D025CBFF3400B56D48 /* ItemTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F49B27CF25CBFF3400B56D48 /* ItemTableViewCell.swift */; };
 		F4F68B5525CD786D003C40F9 /* Tools.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4F68B5425CD786D003C40F9 /* Tools.swift */; };
+		F4F68B5C25CD91A8003C40F9 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4F68B5B25CD91A8003C40F9 /* Extensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,6 +39,7 @@
 		F49B27CC25CBFC6E00B56D48 /* ItemsListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemsListViewModel.swift; sourceTree = "<group>"; };
 		F49B27CF25CBFF3400B56D48 /* ItemTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemTableViewCell.swift; sourceTree = "<group>"; };
 		F4F68B5425CD786D003C40F9 /* Tools.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tools.swift; sourceTree = "<group>"; };
+		F4F68B5B25CD91A8003C40F9 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -55,6 +57,7 @@
 			isa = PBXGroup;
 			children = (
 				F447204025CC4FB3003E2358 /* Protocols.swift */,
+				F4F68B5B25CD91A8003C40F9 /* Extensions.swift */,
 				F4F68B5425CD786D003C40F9 /* Tools.swift */,
 			);
 			path = Additions;
@@ -220,6 +223,7 @@
 				F49B27BE25CBFAF400B56D48 /* ItemsListViewController.swift in Sources */,
 				F447204125CC4FB3003E2358 /* Protocols.swift in Sources */,
 				F49B27D025CBFF3400B56D48 /* ItemTableViewCell.swift in Sources */,
+				F4F68B5C25CD91A8003C40F9 /* Extensions.swift in Sources */,
 				F4F68B5525CD786D003C40F9 /* Tools.swift in Sources */,
 				F49B27CD25CBFC6E00B56D48 /* ItemsListViewModel.swift in Sources */,
 				F49B27C125CBFB1900B56D48 /* ItemViewController.swift in Sources */,

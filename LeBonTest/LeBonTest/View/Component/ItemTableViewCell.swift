@@ -107,28 +107,8 @@ final class ItemTableViewCell: UITableViewCell {
         self.categoryLabel.text =  self.itemViewModel?.category
         self.priceLabel.text = self.itemViewModel?.price
 
-        self.loadImage()
-    }
-
-    private func loadImage() {
         if let imageUrl = self.itemViewModel?.smallImageUrl {
-            self.imageDownloadTask = URLSession.shared.dataTask(with: imageUrl, completionHandler: { (data, response, error) in
-                DispatchQueue.main.async {
-                    guard let data = data, let image = UIImage(data: data) else {
-                        self.thumbImageView.image = self.placeholderImage
-                        return
-                    }
-                    UIView.transition(with: self.thumbImageView,
-                                      duration: 0.2,
-                                      options: .transitionCrossDissolve,
-                                      animations: {
-                                        self.thumbImageView.image = image
-                                      },
-                                      completion: nil)
-                }
-            })
-
-            self.imageDownloadTask?.resume()
+            self.imageDownloadTask = self.thumbImageView.downloadImage(url: imageUrl)
         }
     }
 }
