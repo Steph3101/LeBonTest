@@ -14,12 +14,17 @@ struct ItemViewModel {
         self.item = item
     }
 
-    var name: String {
-        return String(item.id)
+    var title: String {
+        return item.title ?? ""
     }
 
     var category: String {
         guard let categoryId = self.item.categoryId else { return "" }
         return Category.category(forId: categoryId)?.name ?? ""
+    }
+
+    var price: String {
+        guard let price = item.price else { return "" }
+        return Tools.currencyFormatter.string(from: NSNumber(value: price)) ?? ""
     }
 }

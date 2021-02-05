@@ -10,7 +10,7 @@ import UIKit
 final class ItemViewController: UIViewController {
     var viewModel: ItemViewModel? = nil
 
-    lazy var titleLabel: UILabel = {
+    private lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
 

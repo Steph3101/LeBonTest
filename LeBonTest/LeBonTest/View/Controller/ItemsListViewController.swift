@@ -20,7 +20,8 @@ final class ItemsListViewController: UIViewController {
         let tableView = UITableView()
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.register(ItemTableViewCell.self, forCellReuseIdentifier: String(describing: ItemTableViewCell.self))
-        tableView.backgroundColor = .blue
+        tableView.contentInset = UIEdgeInsets(top: 20, left: 0, bottom: 0, right: 0)
+        tableView.backgroundColor = .white
         tableView.separatorStyle = .none
         tableView.dataSource = self
         tableView.delegate = self
@@ -83,7 +84,7 @@ extension ItemsListViewController: UITableViewDelegate {
     }
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 120
+        return ItemTableViewCell.height
     }
 }
 
