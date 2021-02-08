@@ -30,10 +30,11 @@ enum APIEndpoint {
 }
 
 struct APIManager {
+    static let shared: APIManager = APIManager()
 
     private let serverURL: String = "https://raw.githubusercontent.com/leboncoin/paperclip/master"
 
-    func callAPI<T: Codable>(endPoint: APIEndpoint, completion: @escaping (Result<T, Error>) -> ()) {
+    private func callAPI<T: Codable>(endPoint: APIEndpoint, completion: @escaping (Result<T, Error>) -> ()) {
         guard let url = URL(string: serverURL)?.appendingPathComponent(endPoint.apiPath) else {
             completion(.failure(APIError.urlError))
             return
@@ -71,7 +72,7 @@ struct APIManager {
         self.callAPI(endPoint: .items, completion: completion)
     }
 
-    func getCategories(completion: @escaping (Result<[Category], Error>) -> ()) {
+    func getCategories(completion: @escaping (Result<[ItemCategory], Error>) -> ()) {
         self.callAPI(endPoint: .categories, completion: completion)
     }
 }

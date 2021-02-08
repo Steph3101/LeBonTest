@@ -7,13 +7,13 @@
 
 import Foundation
 
-struct Category: Codable {
-    static var categories = [Category]()
+struct ItemCategory: Codable {
+    static var categories = [ItemCategory]()
 
     let id: Int
     let name: String
 
-    static func category(forId categoryId: Int) -> Category? {
+    static func category(forId categoryId: Int) -> ItemCategory? {
         return categories.first { $0.id == categoryId }
     }
 }

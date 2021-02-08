@@ -18,9 +18,13 @@ struct ItemViewModel {
         return item.title ?? ""
     }
 
-    var category: String {
+    var categoryId: Int? {
+        return self.item.categoryId
+    }
+
+    var category: String? {
         guard let categoryId = self.item.categoryId else { return "" }
-        return Category.category(forId: categoryId)?.name ?? ""
+        return ItemCategory.category(forId: categoryId)?.name ?? ""
     }
 
     var price: String {

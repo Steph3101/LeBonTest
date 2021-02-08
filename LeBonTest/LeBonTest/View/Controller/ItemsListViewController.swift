@@ -29,6 +29,15 @@ final class ItemsListViewController: UIViewController {
         return tableView
     }()
 
+    private lazy var filterButtonItem: UIBarButtonItem = {
+        let button = UIBarButtonItem(image: UIImage(named: "filter"),
+                                     style: .plain,
+                                     target: self,
+                                     action: #selector(self.filterButtonPressed))
+
+        return button
+    }()
+
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setupUI()
@@ -36,6 +45,21 @@ final class ItemsListViewController: UIViewController {
         self.viewModel.delegate = self
         self.viewModel.fetchItemsAndCategories()
         self.title = "LeBonTest"
+    }
+
+    @objc private func filterButtonPressed() {
+        let alert = UIAlertController(title: "Filtrer par catégorie",
+                                      message: nil,
+                                      preferredStyle: .actionSheet)
+
+        for category in self.viewModel.categories {
+            alert.addAction(UIAlertAction(title: category.name, style: .default) { action in
+                print("Category selected : \(category.id)")
+                self.viewModel.filterItems(forCategory: category)
+            })
+        }
+
+        self.present(alert, animated: true, completion: nil)
     }
 }
 
@@ -48,6 +72,7 @@ extension ItemsListViewController: UISplitViewControllerDelegate {
 extension ItemsListViewController: UISetupable {
     func setupUI() {
         DispatchQueue.main.async {
+            self.navigationItem.rightBarButtonItem = self.filterButtonItem
 
             self.view.addSubview(self.tableView)
             self.view.addConstraints([self.tableView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
@@ -89,13 +114,15 @@ extension ItemsListViewController: UITableViewDelegate {
 }
 
 extension ItemsListViewController: ItemsListViewModelDelegate {
-    func didFetchData() {
+
+    func didUpdateItems() {
         DispatchQueue.main.async {
             self.tableView.reloadData()
+            self.navigationItem.rightBarButtonItem?.isEnabled = self.viewModel.isFilteringEnable
         }
     }
 
-    func didFailToFetchData() {
+    func didFailToFetchItems() {
         DispatchQueue.main.async {
             self.tableView.reloadData()
 

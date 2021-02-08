@@ -8,12 +8,29 @@
 import Foundation
 
 protocol ItemsListViewModelDelegate: class {
-    func didFetchData()
-    func didFailToFetchData()
+    func didUpdateItems()
+    func didFailToFetchItems()
 }
 
 final class ItemsListViewModel {
-    private var itemsViewModels: [ItemViewModel] = [ItemViewModel]()
+
+    private var items: [Item] {
+        didSet {
+            self.itemsViewModels = items.map({ item -> ItemViewModel in
+                return ItemViewModel(item: item)
+            })
+        }
+    }
+
+    var categories: [ItemCategory] {
+        return ItemCategory.categories
+    }
+
+    var itemsViewModels: [ItemViewModel] = [ItemViewModel]() {
+        didSet {
+            self.delegate?.didUpdateItems()
+        }
+    }
 
     weak var delegate: ItemsListViewModelDelegate?
 
@@ -21,39 +38,52 @@ final class ItemsListViewModel {
         return itemsViewModels.count
     }
 
+    var isFilteringEnable: Bool {
+        return self.itemsCount > 0
+    }
+
+    init(items: [Item] = [Item]()) {
+        self.items = items
+    }
+
     func itemViewModel(forItemAtIndex indexPath: IndexPath) -> ItemViewModel {
         return self.itemsViewModels[indexPath.row]
     }
 
     func fetchItemsAndCategories() {
-        APIManager().getCategories { result in
+        APIManager.shared.getCategories { result in
             switch result {
             case .failure(let error):
                 print(error.localizedDescription)
-                self.delegate?.didFailToFetchData()
+                self.delegate?.didFailToFetchItems()
             case .success(let categories):
-                Category.categories = categories
-                print("\(Category.categories.count) categories")
+                ItemCategory.categories = categories
                 self.fetchItems()
             }
         }
     }
 
     private func fetchItems() {
-        APIManager().getItems { result in
+        APIManager.shared.getItems { result in
             switch result {
             case .failure(let error):
                 print(error.localizedDescription)
-                self.itemsViewModels.removeAll()
-                self.delegate?.didFailToFetchData()
+                self.items.removeAll()
+                self.delegate?.didFailToFetchItems()
             case .success(let items):
-                self.itemsViewModels = items.map({ item -> ItemViewModel in
-                    return ItemViewModel(item: item)
-                })
-
-                self.delegate?.didFetchData()
-                print("\(self.itemsCount) items")
+                self.items = items
+                print("\(ItemCategory.categories.count) categories - \(self.itemsCount) items")
             }
         }
+    }
+
+    func filterItems(forCategory category: ItemCategory) {
+        self.itemsViewModels = self.items.filter({ item -> Bool in
+            return item.categoryId == category.id
+        }).map({ItemViewModel(item: $0)})
+    }
+
+    private func resetFilter() {
+        self.itemsViewModels = items.map({ ItemViewModel(item: $0) })
     }
 }
