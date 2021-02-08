@@ -59,6 +59,8 @@ final class ItemsListViewController: UIViewController {
             })
         }
 
+        alert.addAction(UIAlertAction(title: "Annuler", style: .cancel, handler: nil))
+
         self.present(alert, animated: true, completion: nil)
     }
 }

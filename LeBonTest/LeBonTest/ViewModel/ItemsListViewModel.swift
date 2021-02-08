@@ -16,7 +16,7 @@ final class ItemsListViewModel {
 
     private var items: [Item] {
         didSet {
-            self.itemsViewModels = items.map({ item -> ItemViewModel in
+            self.itemsViewModels = self.items.map({ item -> ItemViewModel in
                 return ItemViewModel(item: item)
             })
         }
@@ -71,7 +71,7 @@ final class ItemsListViewModel {
                 self.items.removeAll()
                 self.delegate?.didFailToFetchItems()
             case .success(let items):
-                self.items = items
+                self.items = self.sort(items)
                 print("\(ItemCategory.categories.count) categories - \(self.itemsCount) items")
             }
         }
@@ -83,7 +83,23 @@ final class ItemsListViewModel {
         }).map({ItemViewModel(item: $0)})
     }
 
-    private func resetFilter() {
+    func resetFilter() {
         self.itemsViewModels = items.map({ ItemViewModel(item: $0) })
+    }
+
+    // Order items by date and urgent first
+    func sort(_ items: [Item]) -> [Item] {
+        let urgentItems = items.filter({ $0.isUrgent })
+        let nonUrgentItems = items.filter({ !$0.isUrgent })
+
+        var sortedItems = urgentItems.sorted { (firstItem, secondItem) -> Bool in
+            return firstItem.creationDate.compare(secondItem.creationDate) == ComparisonResult.orderedDescending
+        }
+
+        sortedItems.append(contentsOf: nonUrgentItems.sorted { (firstItem, secondItem) -> Bool in
+            return firstItem.creationDate.compare(secondItem.creationDate) == ComparisonResult.orderedDescending
+        })
+
+        return sortedItems
     }
 }

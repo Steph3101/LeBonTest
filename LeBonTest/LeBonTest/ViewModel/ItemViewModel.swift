@@ -15,21 +15,19 @@ struct ItemViewModel {
     }
 
     var title: String {
-        return item.title ?? ""
+        return item.title
     }
 
-    var categoryId: Int? {
+    var categoryId: Int {
         return self.item.categoryId
     }
 
     var category: String? {
-        guard let categoryId = self.item.categoryId else { return "" }
-        return ItemCategory.category(forId: categoryId)?.name ?? ""
+        return ItemCategory.category(forId: self.item.categoryId)?.name ?? ""
     }
 
     var price: String {
-        guard let price = item.price else { return "" }
-        return Tools.currencyFormatter.string(from: NSNumber(value: price)) ?? ""
+        return Tools.currencyFormatter.string(from: NSNumber(value: item.price)) ?? ""
     }
 
     var smallImageUrl: URL? {
@@ -42,5 +40,9 @@ struct ItemViewModel {
 
     var isUrgent: Bool {
         return item.isUrgent == true
+    }
+
+    var creationDate: Date {
+        return item.creationDate
     }
 }
