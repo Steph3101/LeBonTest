@@ -60,6 +60,9 @@ final class ItemsListViewController: UIViewController {
         }
 
         alert.addAction(UIAlertAction(title: "Annuler", style: .cancel, handler: nil))
+        alert.addAction(UIAlertAction(title: "Toutes les catégories", style: .destructive) { action in
+            self.viewModel.resetFilter()
+        })
 
         self.present(alert, animated: true, completion: nil)
     }

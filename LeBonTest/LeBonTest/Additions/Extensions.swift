@@ -10,6 +10,10 @@ import UIKit
 
 extension UIImageView {
     func downloadImage(url: URL, placeholder: UIImage? = nil, animated: Bool = true) -> URLSessionTask {
+        DispatchQueue.main.async {
+            self.image = placeholder
+        }
+        
         let task = URLSession.shared.dataTask(with: url, completionHandler: { (data, response, error) in
             DispatchQueue.main.async {
                 guard let data = data, let image = UIImage(data: data) else {

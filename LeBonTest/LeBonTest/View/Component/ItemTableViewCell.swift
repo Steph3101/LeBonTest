@@ -117,7 +117,7 @@ final class ItemTableViewCell: UITableViewCell {
         self.urgentImageView.isHidden = self.itemViewModel?.isUrgent == false
 
         if let imageUrl = self.itemViewModel?.smallImageUrl {
-            self.imageDownloadTask = self.thumbImageView.downloadImage(url: imageUrl, placeholder: self.placeholderImage)
+            self.thumbImageView.downloadImage(url: imageUrl, placeholder: self.placeholderImage)
         }
     }
 }

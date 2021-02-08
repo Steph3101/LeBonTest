@@ -11,7 +11,7 @@ struct Item: Codable {
     let id: Int
     let title: String
     let categoryId: Int
-    let itemDescription: String?
+    let description: String?
     let price: Int
     let imagesUrl: ImagesUrl?
     let creationDate: Date

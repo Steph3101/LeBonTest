@@ -18,6 +18,10 @@ struct ItemViewModel {
         return item.title
     }
 
+    var description: String {
+        return item.description ?? ""
+    }
+
     var categoryId: Int {
         return self.item.categoryId
     }
@@ -44,5 +48,9 @@ struct ItemViewModel {
 
     var creationDate: Date {
         return item.creationDate
+    }
+
+    var readableDate: String {
+        return "Date"
     }
 }
