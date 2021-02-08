@@ -73,6 +73,14 @@ final class ItemTableViewCell: UITableViewCell {
         return label
     }()
 
+    private lazy var urgentImageView: UIImageView = {
+        let imageView = UIImageView(image: UIImage(named: "urgent"))
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.contentMode = .scaleAspectFill
+        imageView.backgroundColor = .clear
+        return imageView
+    }()
+
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
 
@@ -106,9 +114,10 @@ final class ItemTableViewCell: UITableViewCell {
         self.titleLabel.text = self.itemViewModel?.title
         self.categoryLabel.text =  self.itemViewModel?.category
         self.priceLabel.text = self.itemViewModel?.price
+        self.urgentImageView.isHidden = self.itemViewModel?.isUrgent == false
 
         if let imageUrl = self.itemViewModel?.smallImageUrl {
-            self.imageDownloadTask = self.thumbImageView.downloadImage(url: imageUrl)
+            self.imageDownloadTask = self.thumbImageView.downloadImage(url: imageUrl, placeholder: self.placeholderImage)
         }
     }
 }
@@ -137,8 +146,7 @@ extension ItemTableViewCell: UISetupable {
             self.containerView.addSubview(self.titleLabel)
             self.containerView.addConstraints(
                 [self.titleLabel.topAnchor.constraint(equalTo: self.containerView.topAnchor, constant: 10),
-                 self.titleLabel.leadingAnchor.constraint(equalTo: self.thumbImageView.trailingAnchor, constant: 10),
-                 self.containerView.trailingAnchor.constraint(greaterThanOrEqualTo: self.titleLabel.trailingAnchor, constant: 20),])
+                 self.titleLabel.leadingAnchor.constraint(equalTo: self.thumbImageView.trailingAnchor, constant: 10)])
 
             // Category label
             self.containerView.addSubview(self.categoryLabel)
@@ -152,6 +160,15 @@ extension ItemTableViewCell: UISetupable {
                 [self.priceLabel.bottomAnchor.constraint(equalTo: self.containerView.bottomAnchor, constant: -10),
                  self.priceLabel.trailingAnchor.constraint(equalTo: self.containerView.trailingAnchor, constant: -10),
                  self.priceLabel.leadingAnchor.constraint(greaterThanOrEqualTo: self.categoryLabel.trailingAnchor, constant: 10)])
+
+            // Urgent image view
+            self.containerView.addSubview(self.urgentImageView)
+            self.containerView.addConstraints(
+                [self.urgentImageView.topAnchor.constraint(equalTo: self.containerView.topAnchor),
+                 self.urgentImageView.trailingAnchor.constraint(equalTo: self.containerView.trailingAnchor),
+                 self.urgentImageView.heightAnchor.constraint(equalToConstant: 50),
+                 self.urgentImageView.widthAnchor.constraint(equalTo: self.urgentImageView.heightAnchor),
+                 self.urgentImageView.leadingAnchor.constraint(greaterThanOrEqualTo: self.titleLabel.trailingAnchor, constant: 5)])
         }
     }
 }

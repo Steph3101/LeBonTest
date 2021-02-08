@@ -35,4 +35,8 @@ struct ItemViewModel {
     var thumbImageUrl: URL? {
         return item.imagesUrl?.thumb
     }
+
+    var isUrgent: Bool {
+        return item.isUrgent == true
+    }
 }
