@@ -20,6 +20,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         splitViewController.delegate = itemsListVC
 
         let itemsListNavigationVC = UINavigationController(rootViewController: itemsListVC)
+        itemsListNavigationVC.navigationBar.tintColor = .systemGreen
         let itemVC = ItemViewController()
         itemsListVC.delegate = itemVC
 

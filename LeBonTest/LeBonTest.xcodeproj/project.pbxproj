@@ -21,6 +21,7 @@
 		F49B27CA25CBFC6200B56D48 /* ItemViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F49B27C925CBFC6200B56D48 /* ItemViewModel.swift */; };
 		F49B27CD25CBFC6E00B56D48 /* ItemsListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F49B27CC25CBFC6E00B56D48 /* ItemsListViewModel.swift */; };
 		F49B27D025CBFF3400B56D48 /* ItemTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F49B27CF25CBFF3400B56D48 /* ItemTableViewCell.swift */; };
+		F4ECA6C025D2C4EA0028E49D /* ShadowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4ECA6BF25D2C4EA0028E49D /* ShadowView.swift */; };
 		F4F68B5525CD786D003C40F9 /* Tools.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4F68B5425CD786D003C40F9 /* Tools.swift */; };
 		F4F68B5C25CD91A8003C40F9 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4F68B5B25CD91A8003C40F9 /* Extensions.swift */; };
 /* End PBXBuildFile section */
@@ -54,6 +55,7 @@
 		F49B27C925CBFC6200B56D48 /* ItemViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemViewModel.swift; sourceTree = "<group>"; };
 		F49B27CC25CBFC6E00B56D48 /* ItemsListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemsListViewModel.swift; sourceTree = "<group>"; };
 		F49B27CF25CBFF3400B56D48 /* ItemTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemTableViewCell.swift; sourceTree = "<group>"; };
+		F4ECA6BF25D2C4EA0028E49D /* ShadowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShadowView.swift; sourceTree = "<group>"; };
 		F4F68B5425CD786D003C40F9 /* Tools.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tools.swift; sourceTree = "<group>"; };
 		F4F68B5B25CD91A8003C40F9 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -79,6 +81,7 @@
 		F447203F25CC4F99003E2358 /* Additions */ = {
 			isa = PBXGroup;
 			children = (
+				F4ECA6BF25D2C4EA0028E49D /* ShadowView.swift */,
 				F447204025CC4FB3003E2358 /* Protocols.swift */,
 				F4F68B5B25CD91A8003C40F9 /* Extensions.swift */,
 				F4F68B5425CD786D003C40F9 /* Tools.swift */,
@@ -308,6 +311,7 @@
 				F4F68B5C25CD91A8003C40F9 /* Extensions.swift in Sources */,
 				F4F68B5525CD786D003C40F9 /* Tools.swift in Sources */,
 				F49B27CD25CBFC6E00B56D48 /* ItemsListViewModel.swift in Sources */,
+				F4ECA6C025D2C4EA0028E49D /* ShadowView.swift in Sources */,
 				F49B27C125CBFB1900B56D48 /* ItemViewController.swift in Sources */,
 				F49B27CA25CBFC6200B56D48 /* ItemViewModel.swift in Sources */,
 			);

@@ -15,4 +15,11 @@ struct Tools {
         formatter.positiveFormat = "#,##0 ¤"
         return formatter
     }()
+
+    static var dateFormatter: DateFormatter = {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = .short
+        dateFormatter.timeStyle = .none
+        return dateFormatter
+    }()
 }

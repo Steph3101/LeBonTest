@@ -17,18 +17,11 @@ final class ItemTableViewCell: UITableViewCell {
         return UIImage(named: "placeholder")
     }()
 
-    private lazy var containerView: UIView = {
-        let view = UIView()
+    private lazy var containerView: ShadowView = {
+        let view = ShadowView()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = .systemPink
+        view.backgroundColor = .white
         view.layer.cornerRadius = 10.0
-
-        view.layer.shadowColor = UIColor.black.cgColor
-        view.layer.shadowOffset = .zero
-        view.layer.shadowRadius = 3
-        view.layer.shadowOpacity = 0.6
-        view.layer.masksToBounds = false
-
         return view
     }()
 
@@ -37,7 +30,7 @@ final class ItemTableViewCell: UITableViewCell {
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.contentMode = .scaleAspectFill
         imageView.tintColor = .white
-        imageView.backgroundColor = .black
+        imageView.backgroundColor = .lightGray
         imageView.layer.cornerRadius = 10
         imageView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMinXMaxYCorner]
         imageView.clipsToBounds = true
@@ -50,7 +43,7 @@ final class ItemTableViewCell: UITableViewCell {
 
         label.numberOfLines = 2
         label.font = UIFont.boldSystemFont(ofSize: 15)
-        label.textColor = .white
+        label.textColor = .darkGray
         return label
     }()
 
@@ -58,8 +51,8 @@ final class ItemTableViewCell: UITableViewCell {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
 
-        label.font = UIFont.boldSystemFont(ofSize: 15)
-        label.textColor = .white
+        label.font = UIFont.systemFont(ofSize: 15)
+        label.textColor = .darkGray
         return label
     }()
 
@@ -67,9 +60,9 @@ final class ItemTableViewCell: UITableViewCell {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
 
-        label.font = UIFont.boldSystemFont(ofSize: 15)
+        label.font = UIFont.boldSystemFont(ofSize: 16)
         label.textAlignment = .right
-        label.textColor = .white
+        label.textColor = .systemGreen
         return label
     }()
 
@@ -96,6 +89,8 @@ final class ItemTableViewCell: UITableViewCell {
 
     override func layoutSubviews() {
         super.layoutSubviews()
+
+        self.containerView.layer.shadowPath = UIBezierPath(rect: self.containerView.bounds).cgPath
     }
 
     override func prepareForReuse() {
@@ -117,7 +112,7 @@ final class ItemTableViewCell: UITableViewCell {
         self.urgentImageView.isHidden = self.itemViewModel?.isUrgent == false
 
         if let imageUrl = self.itemViewModel?.smallImageUrl {
-            self.thumbImageView.downloadImage(url: imageUrl, placeholder: self.placeholderImage)
+            self.imageDownloadTask = self.thumbImageView.downloadImage(url: imageUrl, placeholder: self.placeholderImage)
         }
     }
 }

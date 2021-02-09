@@ -20,6 +20,7 @@ final class ItemViewController: UIViewController {
         let scrollView = UIScrollView()
         scrollView.translatesAutoresizingMaskIntoConstraints = false
         scrollView.backgroundColor = .clear
+        scrollView.alwaysBounceVertical = true
         return scrollView
     }()
 
@@ -28,10 +29,11 @@ final class ItemViewController: UIViewController {
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.contentMode = .scaleAspectFill
         imageView.tintColor = .white
-        imageView.backgroundColor = .black
-        imageView.layer.cornerRadius = 5
+        imageView.backgroundColor = .lightGray
+        imageView.layer.cornerRadius = 10
         imageView.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
         imageView.clipsToBounds = true
+
         return imageView
     }()
 
@@ -43,36 +45,25 @@ final class ItemViewController: UIViewController {
         return imageView
     }()
 
-    private lazy var titleLabel: UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-
-        label.numberOfLines = 2
-        label.textAlignment = .left
-        label.font = UIFont.boldSystemFont(ofSize: 15)
-        label.textColor = .white
-        return label
-    }()
-
     private lazy var categoryLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
 
         label.numberOfLines = 1
         label.textAlignment = .center
-        label.font = UIFont.boldSystemFont(ofSize: 15)
-        label.textColor = .white
+        label.font = UIFont.systemFont(ofSize: 13)
+        label.textColor = .darkGray
         return label
     }()
 
-    private lazy var dateLabel: UILabel = {
+    private lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
 
-        label.numberOfLines = 1
+        label.numberOfLines = 2
         label.textAlignment = .right
         label.font = UIFont.boldSystemFont(ofSize: 15)
-        label.textColor = .white
+        label.textColor = .darkGray
         return label
     }()
 
@@ -82,9 +73,31 @@ final class ItemViewController: UIViewController {
 
         label.numberOfLines = 1
         label.textAlignment = .right
-        label.font = UIFont.boldSystemFont(ofSize: 15)
-        label.textColor = .white
+        label.font = UIFont.boldSystemFont(ofSize: 16)
+        label.textColor = .systemGreen
         return label
+    }()
+
+    private lazy var dateLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+
+        label.numberOfLines = 1
+        label.textAlignment = .right
+        label.font = UIFont.boldSystemFont(ofSize: 13)
+        label.textColor = .darkGray
+        
+        return label
+    }()
+
+    private lazy var descriptionBackgroundView: ShadowView = {
+        let view = ShadowView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+
+        view.backgroundColor = .systemGreen
+        view.layer.cornerRadius = 10
+
+        return view
     }()
 
     private lazy var descriptionLabel: UILabel = {
@@ -93,8 +106,10 @@ final class ItemViewController: UIViewController {
 
         label.numberOfLines = 0
         label.textAlignment = .left
-        label.font = UIFont.boldSystemFont(ofSize: 12)
+        label.font = UIFont.boldSystemFont(ofSize: 14)
         label.textColor = .white
+        label.backgroundColor = .clear
+
         return label
     }()
 
@@ -111,6 +126,7 @@ final class ItemViewController: UIViewController {
         self.priceLabel.text = self.viewModel?.price
         self.dateLabel.text = self.viewModel?.readableDate
         self.descriptionLabel.text = self.viewModel?.description
+        self.urgentImageView.isHidden = self.viewModel?.isUrgent == false
 
         if let imageUrl = self.viewModel?.thumbImageUrl {
             self.imageDownloadTask = self.imageView.downloadImage(url: imageUrl, placeholder: self.placeholderImage)
@@ -121,7 +137,7 @@ final class ItemViewController: UIViewController {
 extension ItemViewController: UISetupable {
     func setupUI() {
         DispatchQueue.main.async {
-            self.view.backgroundColor = .blue
+            self.view.backgroundColor = .white
 
             self.view.addSubview(self.scrollView)
             let frameGuide = self.scrollView.frameLayoutGuide
@@ -140,7 +156,7 @@ extension ItemViewController: UISetupable {
                 [self.imageView.topAnchor.constraint(equalTo: contentGuide.topAnchor),
                  self.imageView.leadingAnchor.constraint(equalTo: contentGuide.leadingAnchor),
                  self.imageView.trailingAnchor.constraint(equalTo: contentGuide.trailingAnchor),
-                 self.imageView.heightAnchor.constraint(equalTo: frameGuide.heightAnchor, multiplier: 1/3)])
+                 self.imageView.heightAnchor.constraint(equalTo: frameGuide.heightAnchor, multiplier: 1/2)])
 
             self.scrollView.addSubview(self.urgentImageView)
             NSLayoutConstraint.activate(
@@ -149,7 +165,7 @@ extension ItemViewController: UISetupable {
 
             self.scrollView.addSubview(self.categoryLabel)
             NSLayoutConstraint.activate(
-                [self.categoryLabel.topAnchor.constraint(equalTo: self.imageView.bottomAnchor, constant: 20),
+                [self.categoryLabel.topAnchor.constraint(equalTo: self.imageView.bottomAnchor, constant: 15),
                  self.categoryLabel.centerXAnchor.constraint(equalTo: contentGuide.centerXAnchor)])
 
             self.scrollView.addSubview(self.titleLabel)
@@ -161,21 +177,28 @@ extension ItemViewController: UISetupable {
 
             self.scrollView.addSubview(self.priceLabel)
             NSLayoutConstraint.activate(
-                [self.priceLabel.topAnchor.constraint(equalTo: self.titleLabel.bottomAnchor, constant: 15),
+                [self.priceLabel.topAnchor.constraint(equalTo: self.titleLabel.bottomAnchor, constant: 10),
                  self.priceLabel.trailingAnchor.constraint(equalTo: contentGuide.trailingAnchor, constant: -20)])
 
             self.scrollView.addSubview(self.dateLabel)
             NSLayoutConstraint.activate(
-                [self.dateLabel.topAnchor.constraint(equalTo: self.priceLabel.bottomAnchor, constant: 20),
+                [self.dateLabel.topAnchor.constraint(equalTo: self.priceLabel.bottomAnchor, constant: 8),
                  self.dateLabel.trailingAnchor.constraint(equalTo: self.priceLabel.trailingAnchor)])
 
+            self.scrollView.addSubview(self.descriptionBackgroundView)
             self.scrollView.addSubview(self.descriptionLabel)
-            NSLayoutConstraint.activate(
-                [self.descriptionLabel.topAnchor.constraint(equalTo: self.dateLabel.bottomAnchor, constant: 20),
-                 self.descriptionLabel.centerXAnchor.constraint(equalTo: contentGuide.centerXAnchor),
-                 self.descriptionLabel.leadingAnchor.constraint(equalTo: contentGuide.leadingAnchor, constant: 20),
-                 self.descriptionLabel.bottomAnchor.constraint(greaterThanOrEqualTo: contentGuide.bottomAnchor, constant: -20)])
 
+            NSLayoutConstraint.activate(
+                [self.descriptionLabel.topAnchor.constraint(equalTo: self.dateLabel.bottomAnchor, constant: 50),
+                 self.descriptionLabel.centerXAnchor.constraint(equalTo: contentGuide.centerXAnchor),
+                 self.descriptionLabel.leadingAnchor.constraint(equalTo: contentGuide.leadingAnchor, constant: 40)])
+
+            NSLayoutConstraint.activate(
+                [self.descriptionBackgroundView.centerXAnchor.constraint(equalTo: self.descriptionLabel.centerXAnchor),
+                 self.descriptionBackgroundView.centerYAnchor.constraint(equalTo: self.descriptionLabel.centerYAnchor),
+                 self.descriptionBackgroundView.leadingAnchor.constraint(equalTo: self.descriptionLabel.leadingAnchor, constant: -20),
+                 self.descriptionBackgroundView.topAnchor.constraint(equalTo: self.descriptionLabel.topAnchor, constant: -20),
+                 self.descriptionBackgroundView.bottomAnchor.constraint(greaterThanOrEqualTo: contentGuide.bottomAnchor, constant: -20)])
         }
     }
 }

@@ -8,6 +8,13 @@
 import Foundation
 
 struct ItemViewModel {
+
+    private lazy var dateFormatter: DateFormatter = {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = .short
+        dateFormatter.timeStyle = .none
+    }()
+
     private let item: Item
 
     init(item: Item) {
@@ -15,11 +22,11 @@ struct ItemViewModel {
     }
 
     var title: String {
-        return item.title
+        return self.item.title
     }
 
     var description: String {
-        return item.description ?? ""
+        return self.item.description ?? ""
     }
 
     var categoryId: Int {
@@ -31,26 +38,26 @@ struct ItemViewModel {
     }
 
     var price: String {
-        return Tools.currencyFormatter.string(from: NSNumber(value: item.price)) ?? ""
+        return Tools.currencyFormatter.string(from: NSNumber(value: self.item.price)) ?? ""
     }
 
     var smallImageUrl: URL? {
-        return item.imagesUrl?.small
+        return self.item.imagesUrl?.small
     }
 
     var thumbImageUrl: URL? {
-        return item.imagesUrl?.thumb
+        return self.item.imagesUrl?.thumb
     }
 
     var isUrgent: Bool {
-        return item.isUrgent == true
+        return self.item.isUrgent == true
     }
 
     var creationDate: Date {
-        return item.creationDate
+        return self.item.creationDate
     }
 
     var readableDate: String {
-        return "Date"
+        return Tools.dateFormatter.string(from: self.item.creationDate)
     }
 }
