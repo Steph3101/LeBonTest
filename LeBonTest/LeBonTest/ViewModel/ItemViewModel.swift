@@ -51,6 +51,6 @@ struct ItemViewModel {
     }
 
     var readableDate: String {
-        "Publié le \(Tools.dateFormatter.string(from: self.item.creationDate))"
+        "Publiée le \(Tools.dateFormatter.string(from: self.item.creationDate))"
     }
 }

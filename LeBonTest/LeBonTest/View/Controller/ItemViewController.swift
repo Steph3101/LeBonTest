@@ -48,7 +48,7 @@ final class ItemViewController: UIViewController {
 
         label.numberOfLines = 1
         label.textAlignment = .center
-        label.font = UIFont.systemFont(ofSize: 13)
+        label.font = Font.light.withSize(14)
         label.textColor = .darkGray
         return label
     }()
@@ -59,7 +59,7 @@ final class ItemViewController: UIViewController {
 
         label.numberOfLines = 2
         label.textAlignment = .left
-        label.font = UIFont.boldSystemFont(ofSize: 15)
+        label.font = Font.bold.withSize(18)
         label.textColor = .darkGray
         return label
     }()
@@ -70,7 +70,7 @@ final class ItemViewController: UIViewController {
 
         label.numberOfLines = 1
         label.textAlignment = .left
-        label.font = UIFont.boldSystemFont(ofSize: 16)
+        label.font = Font.extraBold.withSize(17)
         label.textColor = .systemGreen
         return label
     }()
@@ -81,7 +81,7 @@ final class ItemViewController: UIViewController {
 
         label.numberOfLines = 1
         label.textAlignment = .left
-        label.font = UIFont.boldSystemFont(ofSize: 13)
+        label.font = Font.medium
         label.textColor = .darkGray
         
         return label
@@ -103,7 +103,7 @@ final class ItemViewController: UIViewController {
 
         label.numberOfLines = 0
         label.textAlignment = .left
-        label.font = UIFont.boldSystemFont(ofSize: 14)
+        label.font = Font.medium
         label.textColor = .white
         label.backgroundColor = .clear
 
@@ -116,7 +116,7 @@ final class ItemViewController: UIViewController {
 
         label.text = "LeBonTest"
         label.textAlignment = .center
-        label.font = UIFont.boldSystemFont(ofSize: 20)
+        label.font = Font.black.withSize(35)
         label.textColor = .systemGreen
         label.backgroundColor = .white
 

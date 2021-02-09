@@ -43,7 +43,7 @@ final class ItemTableViewCell: UITableViewCell {
         label.translatesAutoresizingMaskIntoConstraints = false
 
         label.numberOfLines = 2
-        label.font = UIFont.boldSystemFont(ofSize: 15)
+        label.font = Font.bold
         label.textColor = .darkGray
         return label
     }()
@@ -52,7 +52,7 @@ final class ItemTableViewCell: UITableViewCell {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
 
-        label.font = UIFont.systemFont(ofSize: 15)
+        label.font = Font.light.withSize(14)
         label.textColor = .darkGray
         return label
     }()
@@ -61,7 +61,7 @@ final class ItemTableViewCell: UITableViewCell {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
 
-        label.font = UIFont.boldSystemFont(ofSize: 16)
+        label.font = Font.extraBold.withSize(16)
         label.textAlignment = .right
         label.textColor = .systemGreen
         return label
