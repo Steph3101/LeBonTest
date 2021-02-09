@@ -60,6 +60,8 @@ final class ItemsListViewController: UIViewController {
                                       message: nil,
                                       preferredStyle: .actionSheet)
 
+        alert.addAction(UIAlertAction(title: "Toutes les catégories", style: .destructive) { action in
+
         for category in self.viewModel.categories {
             alert.addAction(UIAlertAction(title: category.name, style: .default) { action in
                 print("Category selected : \(category.id)")
@@ -68,7 +70,6 @@ final class ItemsListViewController: UIViewController {
         }
 
         alert.addAction(UIAlertAction(title: "Annuler", style: .cancel, handler: nil))
-        alert.addAction(UIAlertAction(title: "Toutes les catégories", style: .destructive) { action in
             self.viewModel.resetFilter()
         })
 

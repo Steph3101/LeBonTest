@@ -15,42 +15,42 @@ struct ItemViewModel {
     }
 
     var title: String {
-        return self.item.title
+        item.title
     }
 
     var description: String {
-        return self.item.description ?? ""
+        item.description ?? ""
     }
 
     var categoryId: Int {
-        return self.item.categoryId
+        item.categoryId
     }
 
     var category: String? {
-        return ItemCategory.category(forId: self.item.categoryId)?.name ?? ""
+        ItemCategory.category(forId: self.item.categoryId)?.name ?? ""
     }
 
     var price: String {
-        return Tools.currencyFormatter.string(from: NSNumber(value: self.item.price)) ?? ""
+        Tools.currencyFormatter.string(from: NSNumber(value: item.price)) ?? ""
     }
 
     var smallImageUrl: URL? {
-        return self.item.imagesUrl?.small
+        item.imagesUrl?.small
     }
 
     var thumbImageUrl: URL? {
-        return self.item.imagesUrl?.thumb
+        item.imagesUrl?.thumb
     }
 
     var isUrgent: Bool {
-        return self.item.isUrgent == true
+        item.isUrgent == true
     }
 
     var creationDate: Date {
-        return self.item.creationDate
+        item.creationDate
     }
 
     var readableDate: String {
-        return Tools.dateFormatter.string(from: self.item.creationDate)
+        "Publié le \(Tools.dateFormatter.string(from: self.item.creationDate))"
     }
 }

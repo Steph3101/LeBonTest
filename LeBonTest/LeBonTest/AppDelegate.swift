@@ -21,6 +21,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         let itemsListNavigationVC = UINavigationController(rootViewController: itemsListVC)
         itemsListNavigationVC.navigationBar.tintColor = .systemGreen
+        itemsListNavigationVC.navigationBar.prefersLargeTitles = true
         let itemVC = ItemViewController()
         itemsListVC.delegate = itemVC
 

@@ -29,8 +29,6 @@ final class ItemViewController: UIViewController {
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.tintColor = .white
         imageView.backgroundColor = .lightGray
-        imageView.layer.cornerRadius = 10
-        imageView.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
         imageView.clipsToBounds = true
 
         return imageView
@@ -60,7 +58,7 @@ final class ItemViewController: UIViewController {
         label.translatesAutoresizingMaskIntoConstraints = false
 
         label.numberOfLines = 2
-        label.textAlignment = .right
+        label.textAlignment = .left
         label.font = UIFont.boldSystemFont(ofSize: 15)
         label.textColor = .darkGray
         return label
@@ -71,7 +69,7 @@ final class ItemViewController: UIViewController {
         label.translatesAutoresizingMaskIntoConstraints = false
 
         label.numberOfLines = 1
-        label.textAlignment = .right
+        label.textAlignment = .left
         label.font = UIFont.boldSystemFont(ofSize: 16)
         label.textColor = .systemGreen
         return label
@@ -82,19 +80,19 @@ final class ItemViewController: UIViewController {
         label.translatesAutoresizingMaskIntoConstraints = false
 
         label.numberOfLines = 1
-        label.textAlignment = .right
+        label.textAlignment = .left
         label.font = UIFont.boldSystemFont(ofSize: 13)
         label.textColor = .darkGray
         
         return label
     }()
 
-    private lazy var descriptionBackgroundView: ShadowView = {
-        let view = ShadowView()
+    private lazy var descriptionBackgroundView: UIView = {
+        let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
 
         view.backgroundColor = .systemGreen
-        view.layer.cornerRadius = 10
+        view.layer.cornerRadius = 5
 
         return view
     }()
@@ -130,6 +128,7 @@ final class ItemViewController: UIViewController {
 
         self.setupUI()
         self.setupData()
+        self.title = "Fiche"
     }
 
     func setupData() {
@@ -198,12 +197,12 @@ extension ItemViewController: UISetupable {
             self.scrollView.addSubview(self.priceLabel)
             NSLayoutConstraint.activate(
                 [self.priceLabel.topAnchor.constraint(equalTo: self.titleLabel.bottomAnchor, constant: 10),
-                 self.priceLabel.trailingAnchor.constraint(equalTo: contentGuide.trailingAnchor, constant: -20)])
+                 self.priceLabel.leadingAnchor.constraint(equalTo: contentGuide.leadingAnchor, constant: 20)])
 
             self.scrollView.addSubview(self.dateLabel)
             NSLayoutConstraint.activate(
                 [self.dateLabel.topAnchor.constraint(equalTo: self.priceLabel.bottomAnchor, constant: 8),
-                 self.dateLabel.trailingAnchor.constraint(equalTo: self.priceLabel.trailingAnchor)])
+                 self.dateLabel.leadingAnchor.constraint(equalTo: contentGuide.leadingAnchor, constant: 20)])
 
             self.scrollView.addSubview(self.descriptionBackgroundView)
             self.scrollView.addSubview(self.descriptionLabel)
