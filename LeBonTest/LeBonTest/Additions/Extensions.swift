@@ -11,6 +11,7 @@ import UIKit
 extension UIImageView {
     func downloadImage(url: URL, placeholder: UIImage? = nil, animated: Bool = true) -> URLSessionTask {
         DispatchQueue.main.async {
+            self.contentMode = .scaleAspectFit
             self.image = placeholder
         }
         
@@ -24,6 +25,7 @@ extension UIImageView {
                                   duration: 0.2,
                                   options: .transitionCrossDissolve,
                                   animations: {
+                                    self.contentMode = .scaleAspectFill
                                     self.image = image
                                   },
                                   completion: nil)

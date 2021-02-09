@@ -30,7 +30,6 @@ final class ItemTableViewCell: UITableViewCell {
     private lazy var thumbImageView: UIImageView = {
         let imageView = UIImageView(image: self.placeholderImage)
         imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.contentMode = .scaleAspectFill
         imageView.tintColor = .white
         imageView.backgroundColor = .lightGray
         imageView.layer.cornerRadius = 10

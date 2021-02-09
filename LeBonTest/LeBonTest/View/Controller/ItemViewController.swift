@@ -27,7 +27,6 @@ final class ItemViewController: UIViewController {
     private lazy var imageView: UIImageView = {
         let imageView = UIImageView(image: self.placeholderImage)
         imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.contentMode = .scaleAspectFill
         imageView.tintColor = .white
         imageView.backgroundColor = .lightGray
         imageView.layer.cornerRadius = 10
@@ -113,6 +112,19 @@ final class ItemViewController: UIViewController {
         return label
     }()
 
+    private lazy var emptyStateLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+
+        label.text = "LeBonTest"
+        label.textAlignment = .center
+        label.font = UIFont.boldSystemFont(ofSize: 20)
+        label.textColor = .systemGreen
+        label.backgroundColor = .white
+
+        return label
+    }()
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -121,14 +133,22 @@ final class ItemViewController: UIViewController {
     }
 
     func setupData() {
-        self.categoryLabel.text = self.viewModel?.category
-        self.titleLabel.text = self.viewModel?.title
-        self.priceLabel.text = self.viewModel?.price
-        self.dateLabel.text = self.viewModel?.readableDate
-        self.descriptionLabel.text = self.viewModel?.description
-        self.urgentImageView.isHidden = self.viewModel?.isUrgent == false
+        guard let viewModel = self.viewModel else {
+            return
+        }
 
-        if let imageUrl = self.viewModel?.thumbImageUrl {
+        DispatchQueue.main.async {
+            self.emptyStateLabel.removeFromSuperview()
+        }
+
+        self.categoryLabel.text = viewModel.category
+        self.titleLabel.text = viewModel.title
+        self.priceLabel.text = viewModel.price
+        self.dateLabel.text = viewModel.readableDate
+        self.descriptionLabel.text = viewModel.description
+        self.urgentImageView.isHidden = viewModel.isUrgent == false
+
+        if let imageUrl = viewModel.thumbImageUrl {
             self.imageDownloadTask = self.imageView.downloadImage(url: imageUrl, placeholder: self.placeholderImage)
         }
     }
@@ -199,6 +219,13 @@ extension ItemViewController: UISetupable {
                  self.descriptionBackgroundView.leadingAnchor.constraint(equalTo: self.descriptionLabel.leadingAnchor, constant: -20),
                  self.descriptionBackgroundView.topAnchor.constraint(equalTo: self.descriptionLabel.topAnchor, constant: -20),
                  self.descriptionBackgroundView.bottomAnchor.constraint(greaterThanOrEqualTo: contentGuide.bottomAnchor, constant: -20)])
+
+            self.view.addSubview(self.emptyStateLabel)
+            NSLayoutConstraint.activate(
+                [self.emptyStateLabel.topAnchor.constraint(equalTo: self.view.topAnchor),
+                 self.emptyStateLabel.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
+                 self.emptyStateLabel.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
+                 self.emptyStateLabel.bottomAnchor.constraint(equalTo: self.view.bottomAnchor)])
         }
     }
 }
