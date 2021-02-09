@@ -22,6 +22,8 @@ final class ItemTableViewCell: UITableViewCell {
         view.translatesAutoresizingMaskIntoConstraints = false
         view.backgroundColor = .white
         view.layer.cornerRadius = 10.0
+        view.layer.borderColor = UIColor.systemGreen.cgColor
+
         return view
     }()
 
@@ -102,6 +104,8 @@ final class ItemTableViewCell: UITableViewCell {
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
+
+        self.containerView.layer.borderWidth = selected ? 3.0 : 0.0
     }
 
     func setup(withViewModel viewModel: ItemViewModel) {

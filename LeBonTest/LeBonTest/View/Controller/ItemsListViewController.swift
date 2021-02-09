@@ -47,6 +47,14 @@ final class ItemsListViewController: UIViewController {
         self.title = "LeBonTest"
     }
 
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        if let indexPath = self.tableView.indexPathForSelectedRow {
+            self.tableView.deselectRow(at: indexPath, animated: true)
+        }
+    }
+
     @objc private func filterButtonPressed() {
         let alert = UIAlertController(title: "Filtrer par catégorie",
                                       message: nil,
