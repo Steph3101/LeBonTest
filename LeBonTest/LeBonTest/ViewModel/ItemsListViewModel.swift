@@ -89,13 +89,16 @@ final class ItemsListViewModel {
 
     // Order items by date and urgent first
     func sort(_ items: [Item]) -> [Item] {
+        // First we split urgent and non urgent items
         let urgentItems = items.filter({ $0.isUrgent })
         let nonUrgentItems = items.filter({ !$0.isUrgent })
 
+        // Then we sort urgent items by date
         var sortedItems = urgentItems.sorted { (firstItem, secondItem) -> Bool in
             return firstItem.creationDate.compare(secondItem.creationDate) == ComparisonResult.orderedDescending
         }
 
+        // And finally we sort non urgent by date and concatenate to the urgent ones
         sortedItems.append(contentsOf: nonUrgentItems.sorted { (firstItem, secondItem) -> Bool in
             return firstItem.creationDate.compare(secondItem.creationDate) == ComparisonResult.orderedDescending
         })

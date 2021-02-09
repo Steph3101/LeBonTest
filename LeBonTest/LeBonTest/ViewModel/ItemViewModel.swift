@@ -8,13 +8,6 @@
 import Foundation
 
 struct ItemViewModel {
-
-    private lazy var dateFormatter: DateFormatter = {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateStyle = .short
-        dateFormatter.timeStyle = .none
-    }()
-
     private let item: Item
 
     init(item: Item) {

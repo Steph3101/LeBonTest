@@ -31,10 +31,6 @@ class ItemsListViewModelTests: XCTestCase {
         self.itemsListViewModel = ItemsListViewModel(items: items)
     }
 
-    override func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
-    }
-
     func testSortedItems() throws {
         let sortedItems = itemsListViewModel.sort(items)
 
