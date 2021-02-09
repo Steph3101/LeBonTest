@@ -61,17 +61,16 @@ final class ItemsListViewController: UIViewController {
                                       preferredStyle: .actionSheet)
 
         alert.addAction(UIAlertAction(title: "Toutes les catégories", style: .destructive) { action in
+            self.viewModel.resetFilter()
+        })
 
         for category in self.viewModel.categories {
             alert.addAction(UIAlertAction(title: category.name, style: .default) { action in
-                print("Category selected : \(category.id)")
                 self.viewModel.filterItems(forCategory: category)
             })
         }
 
         alert.addAction(UIAlertAction(title: "Annuler", style: .cancel, handler: nil))
-            self.viewModel.resetFilter()
-        })
 
         self.present(alert, animated: true, completion: nil)
     }
