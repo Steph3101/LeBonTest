@@ -72,6 +72,10 @@ final class ItemsListViewController: UIViewController {
 
         alert.addAction(UIAlertAction(title: "Annuler", style: .cancel, handler: nil))
 
+        if let popoverController = alert.popoverPresentationController {
+            popoverController.barButtonItem = self.filterButtonItem
+        }
+
         self.present(alert, animated: true, completion: nil)
     }
 }
