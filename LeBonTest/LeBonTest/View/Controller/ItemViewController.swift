@@ -146,6 +146,7 @@ final class ItemViewController: UIViewController {
         self.dateLabel.text = viewModel.readableDate
         self.descriptionLabel.text = viewModel.description
         self.urgentImageView.isHidden = viewModel.isUrgent == false
+        self.imageView.image = self.placeholderImage
 
         if let imageUrl = viewModel.thumbImageUrl {
             self.imageDownloadTask = self.imageView.downloadImage(url: imageUrl, placeholder: self.placeholderImage)
